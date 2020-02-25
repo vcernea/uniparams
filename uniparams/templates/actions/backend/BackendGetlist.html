@@ -1,0 +1,36 @@
+{foreach $lists as $list}
+    <li id="li_{$list.front_index}" data-id="{$list.id}" {if $list.is_group == 0}class="mjs-nestedSortable-no-nesting"{/if} data-is-group="{$list.is_group}">
+        <div>
+            <a href="#">
+                {if $list.is_group == 1}
+                    <i class="icon16 ss set-dynamic"></i>
+                {else}
+                    <i class="icon16 ss set"></i>
+                {/if}
+                {$list.name|escape} <br>
+                <span class="hint">{$list.description|escape}</span>
+                {if $list.is_group == 1}
+                    <i class="float-right icon16 settings uniparams-grouplist-settings"></i>
+                {else}
+                    <i class="float-right icon16 settings uniparams-list-settings"></i>
+                {/if}
+            </a>
+        </div>
+        {if $list.is_group == 1 && $list.kids|@count != 0}
+        <ul>
+            {foreach $list.kids as $sublist}
+            <li id="li_{$sublist.front_index}" class="mjs-nestedSortable-no-nesting" data-id="{$sublist.id}" data-is-group="{$sublist.is_group}">
+                <div>
+                    <a href="#">
+                        <i class="icon16 ss set"></i>
+                        {$sublist.name|escape} <br>
+                        <span class="hint">{$sublist.description|escape}</span>
+                        <i class="float-right icon16 settings uniparams-list-settings"></i>
+                    </a>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+        {/if}
+    </li>
+{/foreach}
